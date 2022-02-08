@@ -1,35 +1,31 @@
-import { Plateau } from './Plateau';
+import Plateau from './Plateau.js';
 
-class Jeu
+export default class Jeu
 {
     constructor()
     {
-        this.initJeu()
-        let nbrDeCoupJoue = 0;
-        let nbrPairesTrouvees = 0;
-        let premierClick = False;
-        let choixCarte = integer;
-        let plateau = new Plateau;
+        this.plateau = new Plateau();
+
+
     }
 
 
-    initJeu()
-    {
+    // initJeu()
+    // {
 
-    }
+    // }
 
-    choixCarte()
-    {
+    // choixCarte()
+    // {
 
-    }
+    // }
 
-    majEtatDuJeu()
-    {
+    // majEtatDuJeu()
+    // {
         
-    }
+    // }
 
 
 
 
 }
-export default { Jeu };

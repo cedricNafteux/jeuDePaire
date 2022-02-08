@@ -1,6 +1,8 @@
-import Jeu from "./Jeu.js";
+import Jeu from "./Jeu.js"
 
 
 let jeu = new Jeu();
+
+
 
 
