@@ -1,4 +1,4 @@
-class Image
+export default class Image
 {
     constructor()
     {
@@ -10,4 +10,3 @@ class Image
 
 
 }
-export default { Image };

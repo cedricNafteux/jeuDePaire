@@ -35,9 +35,13 @@ export default class Carte
 
     trouve()
     {
-        this.trouve = true;
+        this.carteTrouve = true;
     }
 
+    visible(etat)
+    {
+        this.carteVisible = etat;
+        this.image.style.display = (etat)? 'block' : 'none';
+    }
 
 }
-//export default { Carte };

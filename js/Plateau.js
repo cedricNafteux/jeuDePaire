@@ -2,51 +2,53 @@ import Carte from './Carte.js';
 
 export default class Plateau
 {
-    constructor()
+    constructor(choixCarte)
     {
         this.tabCartes = [];
         this.premiereCarteCliquee = null;
         this.deuxiemeCarteCliquee = null;
 
-        this.creerTabCarte();
+        this.creerTabCarte(choixCarte);
         this.brasserTabCarte();
-        this.afficheCartes();
+        this.afficheCarte();
     }
 
 
-    creerTabCarte()
+    creerTabCarte(typeCarte)
     {
         for (let numCarte = 1; numCarte <= 8; numCarte++)
         {
-            let carte = new Carte(numCarte);
+            let carte = new Carte(numCarte, typeCarte);
             this.tabCartes.push(carte);
-            carte = new Carte(numCarte);
+            carte = new Carte(numCarte, typeCarte);
             this.tabCartes.push(carte);
         }
     }
 
     brasserTabCarte()
     {
-        for (let i = 0; i < this.tabCartes.length; i++) {
+        for (let index = 0; index < this.tabCartes.length; index++) {
             let j = Math.floor(Math.random()*15);
-            let temp = this.tabCartes[i];
-            this.tabCartes[i] = this.tabCartes[j];
+            let temp = this.tabCartes[index];
+            this.tabCartes[index] = this.tabCartes[j];
             this.tabCartes[j] = temp;
         }
     }
 
-    afficheCartes()
+    afficheCarte()
     {
-        let tagUl = document.getElementById('idPlateau');
+        let tagDiv = document.getElementById('idPlateau');
+        let tagUl = document.createElement('ul');
         for (let index = 0; index < this.tabCartes.length; index++)
         {
             let tagLi = document.createElement('li');
-            this.tabCartes[index].image.dataset.numcarte = index;
+            this.tabCartes[index].image.dataset.numCarte = index;
             tagLi.appendChild(this.tabCartes[index].image);
             tagUl.appendChild(tagLi);
         }
 
         tagUl.addEventListener('click', (ev) => this.clickCarte(ev), false);
+        tagDiv.appendChild(tagUl);
     }
 
     clickCarte(event)
@@ -57,15 +59,17 @@ export default class Plateau
         if(this.premiereCarteCliquee === null && !carte.isTrouve())
         {
             this.premiereCarteCliquee = carte;
-            this.premiereCarteCliquee.image.style.display = 'block';
-            this.premiereCarteCliquee.carteVisible = true;
+            // this.premiereCarteCliquee.image.style.display = 'block';
+            // this.premiereCarteCliquee.carteVisible = true;
+            this.premiereCarteCliquee.visible(true);
         }else{
 
             if( carte.isVisible() === false)
             {
                 this.deuxiemeCarteCliquee = carte;
-                carte.image.style.display = 'block';
-                carte.carteVisible = true;
+                // carte.image.style.display = 'block';
+                // carte.carteVisible = true;
+                carte.visible(true);
 
                 this.testPaire();
             }
@@ -80,7 +84,17 @@ export default class Plateau
             this.deuxiemeCarteCliquee.trouve();
             this.premiereCarteCliquee = null;
             this.deuxiemeCarteCliquee = null;
+            document.getElementById('idNbrPaire').value++;
+
+        }else{
+            setTimeout(() => {
+                this.premiereCarteCliquee.visible(false);
+                this.deuxiemeCarteCliquee.visible(false);
+                this.premiereCarteCliquee = null;
+                this.deuxiemeCarteCliquee = null;
+            }, 2000);
         }
+        document.getElementById('idNbrEssai').value++;
     }
 
     // getCarteByIndice()
